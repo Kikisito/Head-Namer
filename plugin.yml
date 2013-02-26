@@ -1,0 +1,26 @@
+name: HeadNamer
+main: com.github.devilquak.HeadNamer
+version: 1.1
+description: Rename a player-head item, painlessly simply and without hassle.
+author: devilquak
+website: http://dev.bukkit.org/server-mods/head-namer/
+
+commands:
+   hname:
+      description: Rename a player head in your hand.
+      usage: /hname
+      aliases: hn
+      permission-message: ''
+
+permissions:
+   headnamer.*:
+      description: Allows usage of every Head Namer feature.
+      children:
+         headnamer.name: true
+         headnamer.spawnnewitem: true
+   headnamer.name:
+      description: Allows the holder to rename a player head in their hand.
+      default: op
+   headnamer.spawnnewitem:
+      description: Allows the holder to spawn a new named player-head if he/she is not holding one already.
+      default: op
