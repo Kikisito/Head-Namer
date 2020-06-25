@@ -18,42 +18,40 @@ public class HeadNamer extends JavaPlugin
 		{
 			if(args.length == 0)
 			{
-				sender.sendMessage(ChatColor.AQUA + "Head Namer" + ChatColor.GRAY + " Version 1.1");
-				sender.sendMessage(ChatColor.GRAY + "Coded by devilquak");
-				sender.sendMessage(ChatColor.GRAY + "Type " + ChatColor.AQUA + "/hname [Name]" + ChatColor.GRAY + " or " + ChatColor.AQUA + "/hn [Name]" + ChatColor.GRAY + " to rename a player head.");
+				sender.sendMessage(ChatColor.GRAY + "Escribe " + ChatColor.AQUA + "/hname [nombre]" + ChatColor.GRAY + " o " + ChatColor.AQUA + "/hn [nombre]" + ChatColor.GRAY + " para renombrar la cabeza de un jugador.");
 			}
 			else if(args.length == 1)
 			{
 				if(sender instanceof Player)
 				{
-					Player player = (Player)sender;
-					if(!player.hasPermission("headnamer.name")) player.sendMessage(ChatColor.GRAY + "You don't have permission to do that.");
+					Player player = (Player) sender;
+					if(!player.hasPermission("headnamer.name")) player.sendMessage(ChatColor.GRAY + "No tienes permiso para hacer eso.");
 					else
 					{
-						if(player.getItemInHand().getType() == Material.SKULL_ITEM&&player.getItemInHand().getDurability() == 3)
+						if(player.getItemInHand().getType() == Material.PLAYER_HEAD || player.getItemInHand().getType() == Material.CREEPER_HEAD || player.getItemInHand().getType() == Material.ZOMBIE_HEAD || player.getItemInHand().getType() == Material.SKELETON_SKULL && player.getInventory().getItemInMainHand().getDurability() == 3)
 						{
 							player.setItemInHand(setHead(args[0], player, false));
-							player.sendMessage(ChatColor.AQUA + "Head owner changed to " + args[0] + ChatColor.AQUA + ".");
+							player.sendMessage(ChatColor.AQUA + "Cabeza renombrada a " + args[0] + ChatColor.AQUA + ".");
 						}
 						else
 						{
-							if(!player.hasPermission("headnamer.spawnnewitem")) player.sendMessage(ChatColor.GRAY + "You are not holding a player head, and do not have permission to spawn a new named one.");
+							if(!player.hasPermission("headnamer.spawnnewitem")) player.sendMessage(ChatColor.GRAY + "No estás sujetando ninguna cabeza válida.");
 							else
 							{
 								PlayerInventory inv = player.getInventory();
-								if (inv.firstEmpty() == -1) player.sendMessage(ChatColor.GRAY + "You don't have enough room in your inventory for that.");
+								if (inv.firstEmpty() == -1) player.sendMessage(ChatColor.GRAY + "No tienes espacio en el inventario.");
 								else
 								{
 									ItemStack[] invContents = inv.getContents();
 									invContents[inv.firstEmpty()] = setHead(args[0], player, true);
 									inv.setContents(invContents);
-									player.sendMessage(ChatColor.AQUA + "Spawning " + args[0] + ChatColor.AQUA + "'s head.");
+									player.sendMessage(ChatColor.AQUA + "Creando la cabeza de " + args[0] + ChatColor.AQUA + ".");
 								}
 							}
 						}
 					}
-				} else sender.sendMessage(ChatColor.RED + "This command can only be run by a player.");
-			} else sender.sendMessage(ChatColor.GRAY + "Too many arguments! Use " + ChatColor.AQUA + "/hname [Name]" + ChatColor.GRAY + " or " + ChatColor.AQUA + "/hn [Name]");
+				} else sender.sendMessage(ChatColor.RED + "Este comando solo puede ser usado por un jugador.");
+			} else sender.sendMessage(ChatColor.GRAY + "¡Demasiados argumentos! Usa " + ChatColor.AQUA + "/hname [nombre]" + ChatColor.GRAY + " o " + ChatColor.AQUA + "/hn [nombre]");
 			return true;
 		} return false;
 	}
@@ -61,8 +59,8 @@ public class HeadNamer extends JavaPlugin
 	public ItemStack setHead(String skullOwner, Player player, boolean newItem)
 	{
 		ItemStack is;
-		if(newItem) is = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-		else is = new ItemStack(Material.SKULL_ITEM, player.getItemInHand().getAmount(), (short) 3);
+		if(newItem) is = new ItemStack(Material.PLAYER_HEAD, 1, (short) 3);
+		else is = new ItemStack(Material.PLAYER_HEAD, player.getInventory().getItemInMainHand().getAmount(), (short) 3);
 		SkullMeta meta = (SkullMeta) is.getItemMeta();
 		meta.setOwner(skullOwner);
 		is.setItemMeta(meta);

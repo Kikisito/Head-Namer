@@ -1,6 +1,6 @@
 name: HeadNamer
 main: com.github.devilquak.HeadNamer
-version: 1.1
+version: 1.2
 description: Rename a player-head item, painlessly simply and without hassle.
 author: devilquak
 website: http://dev.bukkit.org/server-mods/head-namer/
