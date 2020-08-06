@@ -3,7 +3,7 @@ main: com.github.devilquak.HeadNamer
 version: 1.2
 api-version: 1.16
 description: Rename a player-head item, painlessly simply and without hassle.
-author: devilquak, dYens
+authors: [devilquak, Kikisito, dYens]
 
 commands:
    hname:
